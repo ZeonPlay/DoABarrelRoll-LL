@@ -7,6 +7,7 @@ endif()
 
 add_library(DoABarrelRoll SHARED
     src/native/dllmain.cpp
+    src/native/signature_scanner.cpp
     src/core/rotation.cpp
 )
 
