@@ -29,3 +29,18 @@ set_target_properties(DoABarrelRoll PROPERTIES
 if(MSVC)
     target_compile_options(DoABarrelRoll PRIVATE /W4 /permissive- /EHsc /utf-8)
 endif()
+
+include(CTest)
+if(BUILD_TESTING)
+    add_executable(rotation_tests
+        tests/rotation_tests.cpp
+        src/core/rotation.cpp
+    )
+    target_include_directories(rotation_tests PRIVATE src)
+    target_compile_features(rotation_tests PRIVATE cxx_std_20)
+    set_target_properties(rotation_tests PROPERTIES CXX_EXTENSIONS OFF)
+    if(MSVC)
+        target_compile_options(rotation_tests PRIVATE /W4 /permissive- /EHsc /utf-8)
+    endif()
+    add_test(NAME rotation_math COMMAND rotation_tests)
+endif()
