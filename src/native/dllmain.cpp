@@ -1,4 +1,7 @@
 #include <Windows.h>
+#include <strsafe.h>
+
+#include <iterator>
 
 #include <cstdint>
 #include <cwchar>
