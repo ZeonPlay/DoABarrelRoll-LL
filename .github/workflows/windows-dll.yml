@@ -1,0 +1,25 @@
+name: Windows DLL
+
+on:
+  push:
+    branches:
+      - "native-dll/**"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S . -B build -A x64
+      - name: Build release DLL
+        run: cmake --build build --config Release
+      - name: Upload DLL artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DoABarrelRoll-windows-x64
+          path: build/Release/DoABarrelRoll.dll
