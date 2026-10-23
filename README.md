@@ -1,29 +1,39 @@
-# LeviLamina Mod Template
+# Do A Barrel Roll — Bedrock Native DLL
+
+Native Windows x64 DLL prototype for Minecraft Bedrock running through Wine, with BedrockOnLinux as the first intended launcher.
+
+**Target version:** Minecraft Bedrock **1.26.52.3** (reported by the developer).  
+**LeviLamina dependency:** none for the native DLL build.
 
 > [!WARNING]
-> Remember to change the [LICENSE](LICENSE) file when you use this template
+> This branch is currently a buildable architecture scaffold, not a playable mod. The DLL entry point and standalone rotation math exist, but the Minecraft-specific hooks are not implemented yet. Do not expect the player or camera to rotate after injecting it.
 
-Mod Template for LeviLamina
+## Build the native DLL
 
-## Usage
+On Windows x64 with Visual Studio Build Tools and CMake:
 
-For detailed instructions, see the [LeviLamina Documentation](https://docs.levimc.org/LeviLamina/developer_guides/tutorials/create_your_first_mod/)
+```powershell
+cmake -S . -B build -A x64
+cmake --build build --config Release
+```
 
-1. Generate a new repository from this template
-2. Clone the new repository
-3. Change the mod name and the expected LeviLamina version in `xmake.lua`
-4. Add your code.
-5. Run `xmake f -y -p windows -a x64 -m release` in the root of the repository
-6. Run `xmake` to build the mod.
+Output: `build/Release/DoABarrelRoll.dll`
 
-After a successful build, you will find mod in `bin/`
+GitHub Actions also builds the DLL on Windows and publishes it as a workflow artifact.
 
-## Contributing
+## Design
 
-Ask questions by creating an issue.
+- `src/core/`: game-independent rotation math.
+- `src/native/`: Windows DLL entry point.
+- `CMakeLists.txt`: standalone Windows DLL build, independent of LeviLamina.
+- `README-native.md`: current implementation status and next milestone.
 
-PRs accepted.
+The old `xmake.lua` and `tooth.json` are still from the original LeviLamina template and are not used by the CMake build.
 
-## License
+## Next milestone
 
-CC0-1.0 © LeviMC(LiteLDev)
+Implement and verify the Bedrock 1.26.52.3-specific hooks for input, player rotation, and camera orientation. Those hooks must be based on the exact game binary; guessed offsets are not safe or reliable.
+
+## Reference
+
+The rotation approach is informed by [Do-A-Barrel-Roll-Bedrock](https://github.com/theaddonn/Do-A-Barrel-Roll-Bedrock). This project is a separate native-DLL implementation and is not affiliated with Mojang or Microsoft.
