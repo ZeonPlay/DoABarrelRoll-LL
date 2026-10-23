@@ -45,3 +45,15 @@ if(BUILD_TESTING)
     endif()
     add_test(NAME rotation_math COMMAND rotation_tests)
 endif()
+
+    add_executable(signature_scanner_tests
+        tests/signature_scanner_tests.cpp
+        src/native/signature_scanner.cpp
+    )
+    target_include_directories(signature_scanner_tests PRIVATE src)
+    target_compile_features(signature_scanner_tests PRIVATE cxx_std_20)
+    set_target_properties(signature_scanner_tests PROPERTIES CXX_EXTENSIONS OFF)
+    if(MSVC)
+        target_compile_options(signature_scanner_tests PRIVATE /W4 /permissive- /EHsc /utf-8)
+    endif()
+    add_test(NAME signature_pattern_parser COMMAND signature_scanner_tests)
