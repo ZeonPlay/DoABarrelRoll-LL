@@ -44,7 +44,6 @@ if(BUILD_TESTING)
         target_compile_options(rotation_tests PRIVATE /W4 /permissive- /EHsc /utf-8)
     endif()
     add_test(NAME rotation_math COMMAND rotation_tests)
-endif()
 
     add_executable(signature_scanner_tests
         tests/signature_scanner_tests.cpp
@@ -57,3 +56,4 @@ endif()
         target_compile_options(signature_scanner_tests PRIVATE /W4 /permissive- /EHsc /utf-8)
     endif()
     add_test(NAME signature_pattern_parser COMMAND signature_scanner_tests)
+endif()
