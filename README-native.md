@@ -16,15 +16,17 @@ Implemented:
 - A standalone DLL entry point with debug logging.
 - A standalone rotation-math module derived from the reference project's local-frame rotation approach.
 - A Windows x64 GitHub Actions build.
+- A PE executable-section signature scanner with wildcard byte patterns and match-count reporting.
+- Unit tests for rotation math and signature-pattern parsing.
 
 Not implemented yet:
-- Locating the correct 1.26.52.3 player/input/camera functions.
+- Verified byte signatures for the exact 1.26.52.3 player/input/camera functions.
 - Installing hooks into the game.
 - Reading gliding state and input from Bedrock.
 - Applying player and camera rotations.
 - In-game configuration and controls.
 
-Those parts must be implemented against verified signatures for the exact game binary. Guessing addresses or reusing LeviLamina hook code would produce a DLL that may load but cannot safely control the player.
+The scanner is only infrastructure: it does not yet contain verified Minecraft signatures and does not install hooks. Those parts must be implemented against the exact game binary. Guessing addresses or reusing LeviLamina hook code would produce a DLL that may load but cannot safely control the player.
 
 ## Build
 
